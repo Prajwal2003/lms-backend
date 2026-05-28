@@ -1,0 +1,360 @@
+# LMS Platform – Product Requirements Document (PRD)
+
+# 1. Product Overview
+
+The LMS platform is a centralized educational platform developed for book publishers to provide digital learning content to schools.
+
+The system supplements physical textbooks with:
+- chapter-based educational videos
+- quizzes
+- teacher teaching guides
+
+The platform supports:
+- Web application
+- Mobile application
+- QR code-based lesson access
+
+The platform contains four user roles:
+1. Super Admin
+2. School Admin
+3. Teacher
+4. Student
+
+All educational content is globally managed by the publisher and shared across schools.
+
+---
+
+# 2. Core User Flow
+
+## Student Flow
+Login → Select Subject → Select Lesson → Watch Video → Attempt Quiz → Track Progress
+
+## Teacher Flow
+Login → Select Assigned Class/Subject → Open Lesson → Access Teacher Guide PDF → View Student Progress
+
+## School Admin Flow
+Login → Manage Students/Teachers → Assign Teachers → Monitor School Activity
+
+## Super Admin Flow
+Login → Manage Schools → Upload Content → Manage Lessons → Generate QR Codes
+
+---
+
+# 3. Content Hierarchy
+
+Class
+→ Subject
+→ Lesson
+→ Content
+
+---
+
+# 4. User Roles and Responsibilities
+
+# 4.1 Super Admin
+
+Platform owner role controlled by publisher.
+
+## Responsibilities
+- Manage schools
+- Manage school licenses
+- Manage all educational content
+- Upload videos
+- Upload quizzes
+- Upload teacher PDFs
+- Generate QR codes
+- View platform analytics
+
+---
+
+# 4.2 School Admin
+
+Manages school-level users only.
+
+## Responsibilities
+- Add/edit/remove students
+- Add/edit/remove teachers
+- Assign teachers to classes and subjects
+- View school-level student progress
+
+School admins cannot:
+- modify educational content
+- access other schools
+- manage licenses
+
+---
+
+# 4.3 Teacher
+
+Consumes teaching material and monitors assigned students.
+
+## Responsibilities
+- Access assigned classes and subjects
+- Open teacher guide PDFs
+- Search lessons
+- View assigned student progress
+- View student quiz scores
+
+Teachers cannot:
+- upload content
+- edit content
+- download PDFs
+- access students outside assigned classes
+
+---
+
+# 4.4 Student
+
+Consumes educational content.
+
+## Responsibilities
+- Watch lesson videos
+- Attempt quizzes
+- Track lesson progress
+- Resume learning
+- Scan QR codes
+
+Students cannot:
+- access teacher materials
+- access other class content
+- download content
+
+---
+
+# 5. Authentication Requirements
+
+# 5.1 Student Login
+
+Students log in using:
+- School Code
+- Roll Number
+- OTP Verification
+
+## Validation Rules
+- School code must exist
+- Roll number must belong to school
+- OTP expires after configured duration
+
+---
+
+# 5.2 Teacher/Admin Login
+
+Teachers, school admins, and super admins log in using:
+- Email
+- Password
+
+---
+
+# 6. Student Module Requirements
+
+# 6.1 Dashboard
+
+## Features
+- Continue Learning section
+- Subject list
+- Lesson completion overview
+
+## Continue Learning Logic
+System stores last opened lesson.
+Dashboard redirects student back to latest lesson.
+
+---
+
+# 6.2 Subject Screen
+
+Displays:
+- Subject name
+- Lesson list
+- Completion indicators
+
+---
+
+# 6.3 Lesson Screen
+
+Displays:
+- Embedded YouTube videos
+- Quizzes
+
+Teacher PDFs are hidden from students.
+
+---
+
+# 6.4 Video Playback
+
+## Functional Requirements
+- Videos play inside app/web using YouTube embed
+- System tracks watch percentage
+- Video marked completed after 80% watch duration
+
+---
+
+# 6.5 Quiz Module
+
+## Supported Question Type
+- Single-answer MCQ only
+
+## Quiz Behavior
+- Instant score generation
+- Retry allowed
+- No timer
+- No negative marking
+
+## Quiz Completion Logic
+Quiz marked completed after successful submission.
+
+---
+
+# 6.6 Lesson Completion Logic
+
+Lesson marked completed when:
+- Required videos completed
+AND
+- Quiz submitted
+
+---
+
+# 6.7 QR Code Access
+
+## Flow
+1. Student scans QR code from textbook
+2. App/web opens associated lesson directly
+
+## Requirements
+- Each lesson must support unique QR mapping
+- QR should work on mobile app and web app
+
+---
+
+# 7. Teacher Module Requirements
+
+# 7.1 Assigned Content Access
+
+Teachers only see:
+- assigned classes
+- assigned subjects
+
+---
+
+# 7.2 Teacher Guide PDFs
+
+## Functional Requirements
+- PDFs open inside secure viewer
+- Download disabled
+- Right-click disabled
+- Access restricted to authorized teachers
+
+---
+
+# 7.3 Student Analytics
+
+Teachers can view:
+- lesson completion %
+- quiz scores
+- incomplete lessons
+- weak-performing chapters
+
+Teachers only see students assigned to their classes.
+
+---
+
+# 8. School Admin Module Requirements
+
+# 8.1 Student Management
+
+## Features
+- Add student
+- Edit student
+- Remove student
+- Bulk upload students
+
+## Bulk Upload Formats
+- CSV
+- Excel
+
+---
+
+# 8.2 Teacher Management
+
+## Features
+- Add teacher
+- Edit teacher
+- Remove teacher
+- Assign teacher classes and subjects
+
+---
+
+# 9. Super Admin Module Requirements
+
+# 9.1 School Management
+
+## Features
+- Add school
+- Activate/deactivate school
+- Configure license expiry
+
+---
+
+# 9.2 Content Management
+
+## Features
+- Create subjects
+- Create lessons
+- Upload videos
+- Create quizzes
+- Upload teacher PDFs
+
+---
+
+# 9.3 QR Management
+
+## Features
+- Generate QR code for lesson
+- Map QR to lesson URL
+
+---
+
+# 10. Security Requirements
+
+# PDFs
+- PDFs must not be downloadable
+- Signed access URLs required
+- Teacher watermark overlay required
+
+# Access Control
+- Role-based route protection required
+- School isolation enforced
+
+# Authentication
+- Password hashing required
+- OTP expiration required
+
+---
+
+# 11. Non-Functional Requirements
+
+## Performance
+- Mobile responsive UI
+- Fast lesson loading
+- Smooth embedded video playback
+
+## Scalability
+- Support multiple schools
+- Support thousands of concurrent students
+
+## Availability
+- Cloud-hosted deployment
+- High uptime architecture
+
+---
+
+# 12. Out of Scope (MVP Exclusions)
+
+The following are excluded from MVP:
+- Offline support
+- Multi-language support
+- Parent accounts
+- Notifications
+- AI recommendations
+- Advanced gamification
+- Advanced analytics
+- Custom video hosting
