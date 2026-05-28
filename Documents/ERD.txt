@@ -1,0 +1,204 @@
+# LMS Database Schema Design
+
+# 1. schools
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| name | VARCHAR |
+| school_code | VARCHAR |
+| activation_status | BOOLEAN |
+| license_expiry | DATE |
+| created_at | TIMESTAMP |
+
+---
+
+# 2. school_admins
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| school_id | FK |
+| name | VARCHAR |
+| email | VARCHAR |
+| password_hash | TEXT |
+| created_at | TIMESTAMP |
+
+---
+
+# 3. teachers
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| school_id | FK |
+| name | VARCHAR |
+| email | VARCHAR |
+| password_hash | TEXT |
+| created_at | TIMESTAMP |
+
+---
+
+# 4. students
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| school_id | FK |
+| class_id | FK |
+| section_id | FK |
+| name | VARCHAR |
+| roll_number | VARCHAR |
+| phone_number | VARCHAR |
+| created_at | TIMESTAMP |
+
+---
+
+# 5. classes
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| name | VARCHAR |
+
+---
+
+# 6. sections
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| class_id | FK |
+| name | VARCHAR |
+
+---
+
+# 7. subjects
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| class_id | FK |
+| name | VARCHAR |
+
+---
+
+# 8. lessons
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| subject_id | FK |
+| title | VARCHAR |
+| qr_code_url | TEXT |
+| created_at | TIMESTAMP |
+
+---
+
+# 9. videos
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| lesson_id | FK |
+| youtube_url | TEXT |
+| title | VARCHAR |
+| sequence_order | INTEGER |
+
+---
+
+# 10. teacher_pdfs
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| lesson_id | FK |
+| title | VARCHAR |
+| file_url | TEXT |
+| created_at | TIMESTAMP |
+
+---
+
+# 11. quizzes
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| lesson_id | FK |
+| title | VARCHAR |
+| created_at | TIMESTAMP |
+
+---
+
+# 12. quiz_questions
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| quiz_id | FK |
+| question_text | TEXT |
+| option_a | TEXT |
+| option_b | TEXT |
+| option_c | TEXT |
+| option_d | TEXT |
+| correct_option | VARCHAR |
+
+---
+
+# 13. student_video_progress
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| student_id | FK |
+| video_id | FK |
+| watch_percentage | INTEGER |
+| completed | BOOLEAN |
+| last_watched_at | TIMESTAMP |
+
+---
+
+# 14. student_quiz_attempts
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| student_id | FK |
+| quiz_id | FK |
+| score | INTEGER |
+| total_questions | INTEGER |
+| submitted_at | TIMESTAMP |
+
+---
+
+# 15. teacher_assignments
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| teacher_id | FK |
+| class_id | FK |
+| subject_id | FK |
+
+---
+
+# 16. otp_verifications
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| phone_number | VARCHAR |
+| otp_code | VARCHAR |
+| expires_at | TIMESTAMP |
+| verified | BOOLEAN |
+
+---
+
+# 17. resume_learning
+
+| Field | Type |
+|---|---|
+| id | UUID |
+| student_id | FK |
+| lesson_id | FK |
+| last_accessed_at | TIMESTAMP |
