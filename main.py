@@ -7,7 +7,6 @@ from app.models.customer import Customer
 
 app = FastAPI()
 
-
 def get_db():
     db = SessionLocal()
 
@@ -15,7 +14,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
 
 @app.get("/")
 async def root():
