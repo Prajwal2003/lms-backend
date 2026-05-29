@@ -3,11 +3,13 @@ version: '3.9'
 services:
   lms-backend:
     build: .
+    environment:
+      DATABASE_URL: postgresql://lms_user:lms_password@postgres:5432/lms_db
     ports:
       - "8000:8000"
     volumes:
       - .:/app
-    command: uvicorn main:app --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       - postgres
 
