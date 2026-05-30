@@ -22,6 +22,8 @@ if config.config_file_name is not None:
 
 from app.db.session import Base
 from app.models.customer import Customer
+from app.models.users import Users
+from app.models.user_session import UserSession
 
 target_metadata = Base.metadata
 
